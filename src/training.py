@@ -223,10 +223,6 @@ def trajectory_dataset(args, testset=False):
 
 
 def load_restart_training_parameters(args, justparams=False):
-    """
-    :param args: Arguments Namespace returned from parsing :func:`~.minimagen.training.get_minimagen_parser`.
-    :param justparams: Whether loading from a parameters directory rather than a full training directory.
-    """
     if justparams:
         params = args.PARAMETERS
     else:
@@ -289,16 +285,7 @@ def get_model_size(gen_model):
     return (param_size + buffer_size) / 1024 ** 2
 
 
-def save_training_info(args, timestamp, unets_params, imagen_params, model_size, training_dir):
-    """
-    Saves training info to training directory
-    :param args: Arguments Namespace/dict from argparsing :func:`~.minimagen.training.get_minimagen_parser` parser.
-    :param timestamp: Training timestamp
-    :param unets_params: List of parameters of Unets to save.
-    :param imagen_params: Imagen parameters to save
-    :param training_dir: Context manager returned from :func:`~.minimagen.training.create_directory`
-    :return:
-    """
+def save_training_info(args, timestamp, unets_params, cardiff_params, model_size, training_dir):
     # Save the training parameters
     with training_dir("parameters"):
         with open(f"training_parameters_{timestamp}.txt", "w") as f:
@@ -317,16 +304,10 @@ def save_training_info(args, timestamp, unets_params, imagen_params, model_size,
             with open(f'denoiser_{idx}_params_{timestamp}.json', 'w') as f:
                 json.dump(param, f, indent=4)
         with open(f'cardiff_params_{timestamp}.json', 'w') as f:
-            json.dump(imagen_params, f, indent=4)
+            json.dump(cardiff_params, f, indent=4)
 
 
 def get_model_params(parameters_dir):
-    """
-    Returns the U-Net parameters and Imagen parameters saved in a "parameters" subdirectory of a training folder.
-    :param parameters_dir: "parameters" subdirectory from which to load.
-    :return: (unets_params, im_params) where unets_params is a list where the parameters index corresponds to the
-        Unet number in the Imagen instance.
-    """
     im_params = None
     unets_params = []
 
@@ -383,16 +364,12 @@ def load_params(directory):
     unets_params_files = sorted(list(filter(lambda x: x.startswith("denoiser_", ), files)),
                                 key=lambda x: int(x.split("_")[1]))
 
-    # Load U-Nets / MinImagen parameters
     unets_params = [_read_params(directory, f) for f in unets_params_files]
     cardiff_params_files = _read_params(directory, list(filter(lambda x: x.startswith("cardiff_"), files))[0])
     return unets_params, cardiff_params_files
 
 
-def _instatiate_minimagen(directory):
-    # TODO: When restarted training, parameters folder only has the cmd line args, not the unet/imagen params.
-    #   had to copy from training folder this one was restarted from. Fix this so it copies.
-    """ Instantiate an Imagen model with given parameters """
+def _instatiate_cardiff(directory):
     denoisers_params, cardiff_params_files = load_params(directory)
 
     return Cardiff(denoisers=[DiT(**denoisers_params[0]), Unet(**denoisers_params[1])], **cardiff_params_files)
