@@ -1,0 +1,27 @@
+name: torch39
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - cuda-version=12.6=3
+  - networkx=3.2.1=py39h06a4308_0
+  - python=3.9.20=he870216_1
+  - pytorch=2.4.1=py3.9_cuda12.1_cudnn9.1.0_0
+  - torchvision=0.19.1=py39_cu121
+
+  - pip:
+      - accelerate==1.2.1
+      - diffusers==0.32.1
+      - geopandas==0.14.4
+      - huggingface-hub==0.27.0
+      - leuvenmapmatching==1.1.4
+      - numpy==1.26.4
+      - opacus==1.5.3
+      - osmnx==1.9.4
+      - pandas==2.2.3
+      - timm==1.0.12
+      - transformers==4.47.1
+      - wandb==0.19.1
+      - yarl==1.18.3
