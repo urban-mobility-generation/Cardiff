@@ -1,0 +1,24 @@
+cardiff:
+    first_stage_dim: 128
+    first_stage_len: 32
+    second_stage_seq_len: 256
+    attr_embed_dim: 256
+
+Unet:
+    in_channels: 2
+    out_channels: 2
+    channels: 128
+    n_res_blocks: 2
+    attention_levels: [0, 1, 2]
+    channel_multipliers: [1, 1, 2, 2]
+    n_heads: 4
+    tf_layers: 1
+    d_cond: 128
+    lowres_cond: True
+
+DiT:
+    image_size: 32
+    in_channels: 128
+    hidden_size: 256
+    depth: 12
+
