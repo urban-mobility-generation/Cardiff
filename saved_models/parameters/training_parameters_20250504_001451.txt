@@ -1,0 +1,14 @@
+--PARAMETERS=None
+--NUM_WORKERS=0
+--BATCH_SIZE=512
+--IMG_SIDE_LEN=128
+--EPOCHS=500
+--TRAIN_VALID_FRAC=0.95
+--TIMESTEPS=1000
+--OPTIM_LR=0.0001
+--ACCUM_ITER=1
+--RESTART_DIRECTORY=None
+--timestamp=None
+--config=config.yml
+--structure_loss_weight=0.01
+--use_p_loss=False

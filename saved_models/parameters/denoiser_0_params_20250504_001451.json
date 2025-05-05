@@ -1,0 +1,11 @@
+{
+    "image_size": 32,
+    "in_channels": 128,
+    "depth": 8,
+    "num_heads": 8,
+    "mlp_ratio": 4.0,
+    "hidden_size": 256,
+    "cond_feature": false,
+    "learn_sigma": false,
+    "use_fp16": false
+}
