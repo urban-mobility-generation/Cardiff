@@ -199,13 +199,12 @@ class Cardiff(nn.Module):
         Predicts noise component of `x` with `unet`
         """
         # Get the prediction from the base unet
-        if lowres_cond_img:
-            pred = default(model_output, lambda: unet.forward_with_cond_scale(x,
-                                                                              t,
-                                                                              attr_embeds=text_embeds,
-                                                                              cond_scale=cond_scale,
-                                                                              lowres_cond_img=lowres_cond_img,
-                                                                              lowres_noise_times=lowres_noise_times))
+        if lowres_cond_img is not None:
+            pred = unet.forward(x, t,
+                                attr_embeds=text_embeds,
+                                cond_drop_prob=cond_scale,
+                                lowres_cond_embed=lowres_cond_img,
+                                lowres_noise_times=lowres_noise_times)
 
         else:
             pred = default(model_output, lambda: unet.forward(x,

@@ -17,10 +17,15 @@ that can be used to create a Conda environment.
 
 ## Sampling 
 
-- **Pre-trained checkpoints** 
+- **Pre-trained checkpoints** are stored in [`saved_models`](saved_models)
 
-- We provided a jupyter notebook for quick sampling test.
+- We provided a jupyter notebook [`inference_con.ipynb`](inference_con.ipynb) for quick sampling test.
 
 ## Training Cardiff
 
 We provide a training script for DiT in [`train.py`](train.py). 
+
+## BibTeX
+
+This project is under review, and the preprint version is not online yet.
+Please drop me a message if you want to use our code or if you have any questions.
