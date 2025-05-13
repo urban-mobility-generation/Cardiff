@@ -600,7 +600,7 @@ class Cardiff(nn.Module):
             device: torch.device = None,
     ) -> torch.Tensor:
         """
-        Predict-x0 版本：first-stage denoising
+        Predict-x0：first-stage denoising
         """
         device = default(device, self.device)
         self._reset_denoisers_all_one_device(device=device)
