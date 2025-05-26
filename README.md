@@ -23,7 +23,7 @@ that can be used to create a Conda environment.
 
 ## Training Cardiff
 
-We provide a training script for DiT in [`train.py`](train.py). 
+We provide a training script for Cardiff in [`train.py`](train.py). 
 
 ## BibTeX
 
