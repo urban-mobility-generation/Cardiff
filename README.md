@@ -27,5 +27,14 @@ We provide a training script for Cardiff in [`train.py`](train.py).
 
 ## BibTeX
 
-This project is under review, and the preprint version is not online yet.
-Please drop me a message if you want to use our code or if you have any questions.
+```
+@article{guo2025leveraging,
+  title={Leveraging the Spatial Hierarchy: Coarse-to-fine Trajectory Generation via Cascaded Hybrid Diffusion},
+  author={Guo, Baoshen and Hong, Zhiqing and Li, Junyi and Wang, Shenhao and Zhao, Jinhua},
+  journal={arXiv preprint arXiv:2507.13366},
+  year={2025}
+}
+```
+
+
+Please drop me an email if you have any questions.
