@@ -34,7 +34,8 @@ We provide a training script for Cardiff in [`train.py`](train.py).
   journal={arXiv preprint arXiv:2507.13366},
   year={2025}
 }
+
 ```
 
 
-Please drop me an email if you have any questions.
+Please drop me an email if you have any questions .
