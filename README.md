@@ -3,6 +3,18 @@
 This repo contains PyTorch model definitions, training, and sampling code for our paper https://www.arxiv.org/abs/2507.13366:
 > Leveraging the Spatial Hierarchy: Coarse-to-fine Trajectory Generation via Cascaded Hybrid Diffusion
 
+![framework](assets/framework.png)
+
+
+In this paper, we propose Cardiff, a coarse-to-fine Cascaded hybrid diffusion-based framework for fine-grained and structure-plausible trajectory generation. By leveraging the hierarchical nature of urban mobility, Cardiff decomposes the generation process into two cascaded levels, i.e., discrete road segment-level and continuous fine-grained GPS-level. 
+
+The cascaded framework consists of:
+
+- A segment-level trajectory autoencoder to encode discrete road trajectory into latents;
+- A coarse-grained segment-level latent diffusion module
+- A conditional fine-grained GPS-level continuous diffusion module
+
+
 ## Setup
 
 First, download and set up the repo:
@@ -38,4 +50,4 @@ We provide a training script for Cardiff in [`train.py`](train.py).
 ```
 
 
-Please drop me an email if you have any questions .
+Please drop me an email (baoshen@mit.edu) if you have any questions .
