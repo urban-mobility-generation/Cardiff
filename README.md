@@ -17,7 +17,7 @@ The cascaded framework consists of:
 
 ## Setup
 
-First, download and set up the repo:
+### 1. Download and set up the repo:
 
 ```
 git clone https://github.com/urban-mobility-generation/Cardiff.git
@@ -26,6 +26,10 @@ cd Cardiff
 
 We provide an [`environment.yml`](environment.yml) file 
 that can be used to create a Conda environment. 
+
+### 2. Prepare the dataset 
+For data preprocessing steps, please [**Prepare the dataset”**](https://github.com/urban-mobility-generation/Discrete-Trajectory-Autoencoder?tab=readme-ov-file#2-prepare-the-dataset).
+
 
 ## Sampling 
 
