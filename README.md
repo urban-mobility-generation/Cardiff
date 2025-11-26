@@ -41,6 +41,11 @@ For data preprocessing steps, please [**Prepare the dataset”**](https://github
 
 We provide a training script for Cardiff in [`train.py`](train.py). 
 
+- Multi-GPU Training with **Accelerate**
+```
+nohup accelerate launch --num_processes 3 train.py > train.log 2>&1 &
+```
+
 ## BibTeX
 
 ```
