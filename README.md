@@ -1,6 +1,6 @@
 # Cardiff
 
-This repo contains PyTorch model definitions, training, and sampling code for our paper https://www.arxiv.org/abs/2507.13366:
+This repo contains PyTorch model definitions, training, and sampling code for our paper (Has been Accepted by ACM SIGKDD 2026!) https://www.arxiv.org/abs/2507.13366:
 > Leveraging the Spatial Hierarchy: Coarse-to-fine Trajectory Generation via Cascaded Hybrid Diffusion
 
 ![framework](assets/framework.png)
