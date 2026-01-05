@@ -39,6 +39,12 @@ For data preprocessing steps, please [**Prepare the dataset**](https://github.co
 
 ## Training Cardiff
 
+### first, train the trajectory autoencoder: 
+- Please refer to [**training trajectory autoencoder**](https://github.com/urban-mobility-generation/Discrete-Trajectory-Autoencoder?tab=readme-ov-file#training).
+
+
+### Second, train the cardiff denoising framework:
+
 We provide a training script for Cardiff in [`train.py`](train.py). 
 
 - Multi-GPU Training with **Accelerate**
