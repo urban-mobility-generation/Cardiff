@@ -185,7 +185,7 @@ def main(args):
     latent_argparse = argparse.Namespace(**latent_model_args)
 
     # config for ori-AE
-    ae_config = BartConfig.from_json_file("pretrained_auto_encoder/ae_config.json")
+    ae_config = BartConfig.from_json_file("pretrained_auto_encoder/CD/ae_config.json")
 
     autoencoder = BARTLatentCompression(
         config=ae_config,

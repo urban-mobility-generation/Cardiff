@@ -125,6 +125,7 @@ class DiT(nn.Module):
             num_heads=8,
             mlp_ratio=4.0,
             hidden_size=256,
+            one_hot_dim=1015,
             cond_feature=False,
             learn_sigma=False,
             use_fp16=False,
@@ -148,7 +149,7 @@ class DiT(nn.Module):
         )
 
         self.t_embedder = TimestepEmbedder(hidden_size)
-        self.attr_embed = AttrBlock(embedding_dim=hidden_size)
+        self.attr_embed = AttrBlock(embedding_dim=hidden_size, one_hot_dim=one_hot_dim)
 
         self.pos_embed = nn.Parameter(torch.zeros(1, image_size, hidden_size), requires_grad=False)
 
@@ -223,7 +224,7 @@ class DiT(nn.Module):
 
 
 class AttrBlock(nn.Module):
-    def __init__(self, embedding_dim=128, hidden_dim=256):
+    def __init__(self, embedding_dim=128, hidden_dim=256, one_hot_dim=1015):
         super(AttrBlock, self).__init__()
 
         # Wide part (linear model for continuous attributes)
@@ -231,8 +232,8 @@ class AttrBlock(nn.Module):
 
         # Deep part (neural network for categorical attributes)
         self.depature_embedding = nn.Embedding(144, hidden_dim)
-        self.sid_embedding = nn.Embedding(1015, hidden_dim)
-        self.eid_embedding = nn.Embedding(1015, hidden_dim)
+        self.sid_embedding = nn.Embedding(one_hot_dim, hidden_dim)
+        self.eid_embedding = nn.Embedding(one_hot_dim, hidden_dim)
         self.deep_fc1 = nn.Linear(hidden_dim * 3, embedding_dim)
         self.deep_fc2 = nn.Linear(embedding_dim, embedding_dim)
 

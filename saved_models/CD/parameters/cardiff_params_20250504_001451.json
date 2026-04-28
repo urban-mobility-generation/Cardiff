@@ -1,0 +1,12 @@
+{
+    "attr_embed_dim": null,
+    "channels": 2,
+    "timesteps": 1000,
+    "cond_drop_prob": 0.15,
+    "loss_type": "l2",
+    "lowres_sample_noise_level": 0.2,
+    "only_train_unet_number": null,
+    "first_stage_dim": 128,
+    "first_stage_len": 32,
+    "second_stage_len": 256
+}

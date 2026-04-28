@@ -54,7 +54,8 @@ class Unet(nn.Module):
             n_heads: int,
             tf_layers: int = 1,
             d_cond: int = 128,
-            lowres_cond: bool = False
+            lowres_cond: bool = False,
+            one_hot_dim: int = 1015
         ):
 
         super().__init__()
@@ -77,7 +78,8 @@ class Unet(nn.Module):
                 nn.Linear(time_cond_dim, time_cond_dim)
             )
 
-        self.attr_embed = AttrBlock(embedding_dim=time_cond_dim)
+        self.attr_embed = AttrBlock(embedding_dim=time_cond_dim,
+                                    one_hot_dim=one_hot_dim)
         # Input half of the U-Net
         self.input_blocks = nn.ModuleList()
         # `TimestepEmbedSequential` calls them accordingly.
@@ -330,7 +332,7 @@ def normalization(channels):
 
 
 class AttrBlock(nn.Module):
-    def __init__(self, embedding_dim=128, hidden_dim=256):
+    def __init__(self, embedding_dim=128, hidden_dim=256, one_hot_dim = 1015):
         super(AttrBlock, self).__init__()
 
         # Wide part (linear model for continuous attributes)
@@ -338,8 +340,8 @@ class AttrBlock(nn.Module):
 
         # Deep part (neural network for categorical attributes)
         self.depature_embedding = nn.Embedding(144, hidden_dim)
-        self.sid_embedding = nn.Embedding(1015, hidden_dim)
-        self.eid_embedding = nn.Embedding(1015, hidden_dim)
+        self.sid_embedding = nn.Embedding(one_hot_dim, hidden_dim)
+        self.eid_embedding = nn.Embedding(one_hot_dim, hidden_dim)
         self.deep_fc1 = nn.Linear(hidden_dim * 3, embedding_dim)
         self.deep_fc2 = nn.Linear(embedding_dim, embedding_dim)
 

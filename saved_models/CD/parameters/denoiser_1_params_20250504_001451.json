@@ -1,0 +1,21 @@
+{
+    "tf_layers": 1,
+    "d_cond": 128,
+    "lowres_cond": true,
+    "in_channels": 2,
+    "out_channels": 2,
+    "channels": 128,
+    "n_res_blocks": 2,
+    "attention_levels": [
+        0,
+        1,
+        2
+    ],
+    "channel_multipliers": [
+        1,
+        1,
+        2,
+        2
+    ],
+    "n_heads": 4
+}
