@@ -41,6 +41,7 @@ For data preprocessing steps, please [**Prepare the dataset**](https://github.co
 
 ### first, train the trajectory autoencoder: 
 - Please refer to [**training trajectory autoencoder**](https://github.com/urban-mobility-generation/Discrete-Trajectory-Autoencoder?tab=readme-ov-file#training).
+- The Porto autoencoder and related training checkpoints are available on Hugging Face: [**baoshen/cardiff_porto_pretrained**](https://huggingface.co/baoshen/cardiff_porto_pretrained).
 
 
 ### Second, train the cardiff denoising framework:
