@@ -1,7 +1,7 @@
 {
   "dataset_name": "porto",
   "max_seq_len": 128,
-  "enc_dec_model": "/storage/baoshen/cardiff_porto/pretrain_lm/bart_pretrain_masked_4_2/checkpoint-30000",
+  "enc_dec_model": "cardiff_porto/pretrain_lm/bart_pretrain_masked_4_2/checkpoint-30000",
   "train_batch_size": 256,
   "eval_batch_size": 256,
   "num_encoder_latents": 32,
