@@ -29,15 +29,15 @@ def structure_loss_from_logits(logits: torch.Tensor, adjacency_map: torch.Tensor
     adjacency_map: dict[str, set[str]], edge_id string adjacency
     vocab: list of vocab token strings, where vocab[i] is the str edge_id at index i
     """
-    pred_ids = logits.argmax(dim=-1)  # (B, L)
-    B, L = pred_ids.shape
-    pred_ids = logits.argmax(dim=-1)  # (B, L),
-    B, L = pred_ids.shape
-    src_ids = pred_ids[:, :-1]  # (B, L-1)
-    tgt_ids = pred_ids[:, 1:]   # (B, L-1)
-    is_invalid = ~adjacency_map[src_ids, tgt_ids]
-    structure_loss = is_invalid.float().mean()
-    return torch.tensor(structure_loss)
+    pred_probs, pred_ids = logits.softmax(dim=-1).topk(16, dim=-1)  # (B, L, k)
+    B, L, K = pred_ids.shape
+    pred_probs = pred_probs / pred_probs.sum(dim=-1, keepdim=True)
+    src_ids = pred_ids[:, :-1]  # (B, L-1, k)
+    tgt_ids = pred_ids[:, 1:]   # (B, L-1, k)
+    is_invalid = ~adjacency_map[src_ids[:, :, :, None], tgt_ids[:, :, None, :]]
+    pair_probs = pred_probs[:, :-1, :, None] * pred_probs[:, 1:, None, :]
+    structure_loss = (is_invalid.float() * pair_probs).sum(dim=(-1, -2)).mean()
+    return structure_loss
 
 
 class Cardiff(nn.Module):
@@ -477,20 +477,21 @@ class Cardiff(nn.Module):
             )
             diffusion_loss = self.loss_fn(pred, noise)
             num_steps = noise_scheduler.num_timesteps
-            threshold_step = int((1.0 - self.structure_loss_percent) * num_steps)  # e.g., later 10% steps
-            structure_mask = (times >= threshold_step)  # shape: (B,)
+            threshold_step = max(int(self.structure_loss_percent * num_steps), 1)  # e.g., later 10% steps
+            structure_mask = (times < threshold_step)  # shape: (B,)
             if structure_mask.any():
                 pred_selected = pred[structure_mask]
                 labels_selected = labels[structure_mask]
 
-                with torch.no_grad():
-                    re_encoder_outputs = BaseModelOutput(last_hidden_state=self.lm.get_decoder_input(pred_selected.clone()))
+                x0_selected = noise_scheduler.predict_start_from_noise(
+                    x_noisy[structure_mask], t=times[structure_mask], noise=pred_selected)
+                re_encoder_outputs = BaseModelOutput(last_hidden_state=self.lm.get_decoder_input(x0_selected))
 
-                    decoder_out = self.lm(
-                        encoder_outputs=re_encoder_outputs,
-                        labels=labels_selected,
-                        return_dict=True
-                    )
+                decoder_out = self.lm(
+                    encoder_outputs=re_encoder_outputs,
+                    labels=labels_selected,
+                    return_dict=True
+                )
                 logits = decoder_out.logits  # (B', L, V)
 
                 structure_loss = structure_loss_from_logits(

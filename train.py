@@ -247,8 +247,7 @@ if __name__ == "__main__":
                         default=0.01)
 
     parser.add_argument("-use_p_loss", "--use_p_loss",
-                        dest="use_p_loss", help="use_p_loss", type=bool,
-                        default=False)
+                        dest="use_p_loss", help="use_p_loss", action="store_true")
 
     # parser.add_argument("-use_cond", "--use_cond",
     #                     dest="use_cond", help="use_cond", type=bool,
